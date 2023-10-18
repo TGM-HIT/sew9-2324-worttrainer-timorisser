@@ -1,6 +1,7 @@
 package trisser;
 
 import javax.imageio.ImageIO;
+import javax.swing.*;
 import java.awt.*;
 import java.io.IOException;
 import java.net.URL;
@@ -31,7 +32,30 @@ public class WortTrainer {
     }
 
     public void play(){
+        if(index >= this.woerterPaare.size()) this.zuruecksetzen();
+        if(index == 0) randomize();
+        while(index < this.woerterPaare.size()){
+            Image img = getImage();
 
+            String res = (String) JOptionPane.showInputDialog(null, "Was ist das Wort?", "Wort Trainer", JOptionPane.QUESTION_MESSAGE, new ImageIcon(img), null, null);
+            if(res.isEmpty()){
+                // TODO save();
+                return;
+            }
+            boolean guessed = res.equalsIgnoreCase(getPaar(this.index).getWort());
+            if(guessed){
+                this.richtige++;
+                this.index++;
+            } else {
+                this.falsche++;
+            }
+            this.versuche++;
+            JOptionPane.showMessageDialog(null, (guessed ? "Richtig!" : "Falsch!") + "\nVersuche: " + versuche + "\nRichtig: " + richtige + "\nFalsch: " + falsche);
+            if(guessed) this.versuche = 0;
+            //TODO this.save();
+        }
+        zuruecksetzen();
+        //TODO this.save();
     }
 
     public void zuruecksetzen(){
@@ -39,6 +63,7 @@ public class WortTrainer {
         this.richtige = 0;
         this.falsche = 0;
         this.versuche = 0;
+        randomize();
     }
 
     private void randomize(){
@@ -61,6 +86,17 @@ public class WortTrainer {
             throw new RuntimeException(e);
         }
         return img;
+    }
+
+    public void load(){
+        WortTrainer geladen = this.speicherung.loadContent(this.pfad, this);
+        if(geladen != null){
+            this.woerterPaare = geladen.getWoerterPaare();
+            this.index = geladen.getIndex();
+            this.richtige = geladen.getRichtige();
+            this.falsche = geladen.getFalsche();
+            this.versuche = geladen.getVersuche();
+        }
     }
 
     public ArrayList<WoerterPaar> getWoerterPaare() {
