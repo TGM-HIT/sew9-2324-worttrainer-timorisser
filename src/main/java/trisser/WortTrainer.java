@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class WortTrainer {
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         WortTrainer wt = new WortTrainer("src/main/resources/words.json");
         wt.play();
     }
@@ -22,7 +22,7 @@ public class WortTrainer {
     private int versuche;
     private String pfad;
 
-    public WortTrainer(String pfad){
+    public WortTrainer(String pfad) throws IOException {
         this.pfad = pfad;
         this.speicherung = new JSONSave();
         this.woerterPaare = new ArrayList<WoerterPaar>();
@@ -31,7 +31,7 @@ public class WortTrainer {
         this.falsche = 0;
         this.versuche = 0;
 
-        this.woerterPaare.add(new WoerterPaar("https://www.lucypetproducts.com/wp-content/uploads/2020/01/Golden4.jpg.webp", "Hund"));
+        this.woerterPaare.add(new WoerterPaar("https://www.lucypetproducts.com/wp-content/uploads/2020/01/Golden4.jpg", "Hund"));
         this.woerterPaare.add(new WoerterPaar("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/640px-Cat_November_2010-1a.jpg", "Katze"));
         this.woerterPaare.add(new WoerterPaar("https://www.wissenschaft.de/wp-content/uploads/2/0/2023-11-seeadler.jpg", "Adler"));
 
@@ -176,5 +176,9 @@ public class WortTrainer {
 
     public WoerterPaar getPaar(int index){
         return this.woerterPaare.get(index);
+    }
+
+    public void loeschen(){
+        this.woerterPaare.clear();
     }
 }

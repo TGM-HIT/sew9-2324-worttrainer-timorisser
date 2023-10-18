@@ -1,13 +1,18 @@
 package trisser;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
+
 public class WoerterPaar {
 
     private String url;
     private String wort;
 
-    public WoerterPaar(String url, String wort) {
-        this.url = url;
-        this.wort = wort;
+    public WoerterPaar(String url, String wort) throws IOException {
+        setUrl(url);
+        setWort(wort);
     }
 
     public String getWort() {
@@ -22,11 +27,14 @@ public class WoerterPaar {
         return url;
     }
 
-    public void setUrl(String url) {
-        if(!url.endsWith(".png") && !url. endsWith(".jpg") && !url.endsWith(".jpeg")) {
-            throw new IllegalArgumentException("URL muss ein Bild sein!");
+    public void setUrl(String url) throws IllegalArgumentException, IOException {
+
+        Image image = ImageIO.read(new URL(url));
+        if(image != null){
+            this.url = url;
+        }else{
+            throw new IllegalArgumentException("URL is not an image!");
         }
-        this.url = url;
     }
 
     public String toString() {

@@ -57,7 +57,7 @@ public class JSONSave  implements Speicherung{
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             try {
                 woerterPaar.add(new WoerterPaar(jsonObject.getString("url"), jsonObject.getString("wort")));
-            } catch (IllegalArgumentException e) {
+            } catch (IllegalArgumentException | IOException e) {
                 throw new RuntimeException(e);
             }
         }
