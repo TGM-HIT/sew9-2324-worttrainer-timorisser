@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class WortTrainer {
 
     public static void main(String[] args) {
-        //TODO
+
     }
 
     private ArrayList<WoerterPaar> woerterPaare;
@@ -29,6 +29,12 @@ public class WortTrainer {
         this.richtige = 0;
         this.falsche = 0;
         this.versuche = 0;
+
+        this.woerterPaare.add(new WoerterPaar("https://www.lucypetproducts.com/wp-content/uploads/2020/01/Golden4.jpg.webp", "Hund"));
+        this.woerterPaare.add(new WoerterPaar("https://upload.wikimedia.org/wikipedia/commons/thumb/4/4d/Cat_November_2010-1a.jpg/640px-Cat_November_2010-1a.jpg", "Katze"));
+        this.woerterPaare.add(new WoerterPaar("https://www.wissenschaft.de/wp-content/uploads/2/0/2023-11-seeadler.jpg", "Adler"));
+
+        load();
     }
 
     public void play(){
@@ -52,10 +58,10 @@ public class WortTrainer {
             this.versuche++;
             JOptionPane.showMessageDialog(null, (guessed ? "Richtig!" : "Falsch!") + "\nVersuche: " + versuche + "\nRichtig: " + richtige + "\nFalsch: " + falsche);
             if(guessed) this.versuche = 0;
-            //TODO this.save();
+            this.save();
         }
         zuruecksetzen();
-        //TODO this.save();
+        this.save();
     }
 
     public void zuruecksetzen(){
@@ -96,6 +102,14 @@ public class WortTrainer {
             this.richtige = geladen.getRichtige();
             this.falsche = geladen.getFalsche();
             this.versuche = geladen.getVersuche();
+        }
+    }
+
+    public void save(){
+        try {
+            this.speicherung.saveContent(this.pfad, this);
+        } catch (IOException e){
+            throw new RuntimeException(e);
         }
     }
 
