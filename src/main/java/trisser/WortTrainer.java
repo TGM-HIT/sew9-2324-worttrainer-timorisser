@@ -1,5 +1,9 @@
 package trisser;
 
+import javax.imageio.ImageIO;
+import java.awt.*;
+import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class WortTrainer {
@@ -26,6 +30,10 @@ public class WortTrainer {
         this.versuche = 0;
     }
 
+    public void play(){
+
+    }
+
     public void zuruecksetzen(){
         this.index = 0;
         this.richtige = 0;
@@ -33,6 +41,27 @@ public class WortTrainer {
         this.versuche = 0;
     }
 
+    private void randomize(){
+        for(int i = 0; i < this.woerterPaare.size(); i++){
+            int randomI = (int) (Math.random() * this.woerterPaare.size());
+            WoerterPaar temp = this.woerterPaare.get(randomI);
+            this.woerterPaare.set(randomI, this.woerterPaare.get(i));
+            this.woerterPaare.set(i, temp);
+        }
+
+    }
+
+    private Image getImage(){
+        Image img = null;
+        System.out.println(getPaar(this.index).getUrl());
+        try {
+            URL url = new URL(getPaar(this.index).getUrl());
+            img = ImageIO.read(url);
+        } catch (IOException e){
+            throw new RuntimeException(e);
+        }
+        return img;
+    }
 
     public ArrayList<WoerterPaar> getWoerterPaare() {
         return woerterPaare;
@@ -92,5 +121,9 @@ public class WortTrainer {
 
     public void hinzu(WoerterPaar woerterPaar){
         this.woerterPaare.add(woerterPaar);
+    }
+
+    public WoerterPaar getPaar(int index){
+        return this.woerterPaare.get(index);
     }
 }
