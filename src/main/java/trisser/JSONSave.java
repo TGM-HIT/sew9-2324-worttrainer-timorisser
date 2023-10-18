@@ -1,6 +1,6 @@
 package trisser;
 
-public class JSONSave {
+public class JSONSave  implements Speicherung{
 
 
 }

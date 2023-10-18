@@ -1,4 +1,5 @@
 package trisser;
 
-public class Speicherung {
+public interface Speicherung {
+
 }
