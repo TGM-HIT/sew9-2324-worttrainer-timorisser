@@ -10,7 +10,8 @@ import java.util.ArrayList;
 public class WortTrainer {
 
     public static void main(String[] args) {
-
+        WortTrainer wt = new WortTrainer("src/main/resources/words.json");
+        wt.play();
     }
 
     private ArrayList<WoerterPaar> woerterPaare;

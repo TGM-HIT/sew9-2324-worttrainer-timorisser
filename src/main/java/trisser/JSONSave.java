@@ -41,9 +41,9 @@ public class JSONSave  implements Speicherung{
             JSONObject jsonObject = new JSONObject(content);
             wordTrainer.setWoerterPaare(convertJSONArrayToArrayList(jsonObject.getJSONArray("wortPaare")));
             wordTrainer.setIndex(jsonObject.getInt("index"));
-            wordTrainer.setRichtige(jsonObject.getInt("correctAnswers"));
-            wordTrainer.setFalsche(jsonObject.getInt("wrongAnswers"));
-            wordTrainer.setVersuche(jsonObject.getInt("tries"));
+            wordTrainer.setRichtige(jsonObject.getInt("richtige"));
+            wordTrainer.setFalsche(jsonObject.getInt("falsche"));
+            wordTrainer.setVersuche(jsonObject.getInt("versuche"));
 
             return wordTrainer;
         } catch (IOException e) {
@@ -56,7 +56,7 @@ public class JSONSave  implements Speicherung{
         for(int i = 0; i < jsonArray.length(); i++) {
             JSONObject jsonObject = jsonArray.getJSONObject(i);
             try {
-                woerterPaar.add(new WoerterPaar(jsonObject.getString("url"), jsonObject.getString("word")));
+                woerterPaar.add(new WoerterPaar(jsonObject.getString("url"), jsonObject.getString("wort")));
             } catch (IllegalArgumentException e) {
                 throw new RuntimeException(e);
             }
