@@ -23,6 +23,9 @@ public class WoerterPaar {
     }
 
     public void setUrl(String url) {
+        if(!url.endsWith(".png") && !url. endsWith(".jpg") && !url.endsWith(".jpeg")) {
+            throw new IllegalArgumentException("URL muss ein Bild sein!");
+        }
         this.url = url;
     }
 
